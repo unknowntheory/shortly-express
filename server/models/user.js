@@ -1,5 +1,19 @@
 const utils = require('../lib/hashUtils');
 const Model = require('./model');
+const db = require('../db');
+const _ = require('lodash');
+
+const executeQuery = (query, values) => {
+  return db.queryAsync(query, values).spread(results => results);
+};
+
+const parseData = options => {
+  return _.reduce(options, (parsed, value, key) => {
+    parsed.string.push(`${key} = ?`);
+    parsed.values.push(value);
+    return parsed;
+  }, { string: [], values: [] });
+};
 
 /**
  * Users is a class with methods to interact with the users table, which
