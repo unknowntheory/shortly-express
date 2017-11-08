@@ -1,6 +1,5 @@
 const models = require('../models');
 const parseCookies = (req, res, next) => {
-  // console.log(req, '<-x---x--');
   if (req.headers.cookie) { 
     var cookie = req.headers.cookie.split(/=|; /g);
     req.cookies = cookie.reduce((acc, cur, i)=>{
